@@ -1,0 +1,30 @@
+version: "3.3"
+services:
+  manager:
+    image: spark-manager
+    hostname: manager
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    networks:
+      - spark-network
+    volumes:
+      - ./app:/app
+      - ./data:/data
+
+  worker:
+    image: spark-worker
+    depends_on:
+      - manager
+    ports:
+      - "8081:8081"
+    networks:
+      - spark-network
+    environment:
+      - "SPARK_MANAGER=manager:7077"
+    volumes:
+      - ./app:/app
+      - ./data:/data
+
+networks:
+  spark-network:
