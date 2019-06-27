@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   manager:
-    image: spark-manager
+    image: spark-manager:latest
     hostname: manager
     ports:
       - "8080:8080"
@@ -13,7 +13,7 @@ services:
       - ./data:/data
 
   worker:
-    image: spark-worker
+    image: spark-worker:latest
     depends_on:
       - manager
     ports:
